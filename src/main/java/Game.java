@@ -11,6 +11,7 @@ public class Game {
                 this.points = 100;
                 this.attempts = 10;
                 this.randomNumber = (int) (Math.random() * 49)+1;
+                System.out.println("Número aleatório: " + randomNumber);
                 break;
             case 2:
                 this.difficulty = "Médio";
@@ -24,6 +25,17 @@ public class Game {
                 this.attempts = 5;
                 this.randomNumber = (int) (Math.random() * 199)+1;
                 break;
+        }
+    }
+
+    public Boolean verifyNumber(int number){
+        if(number == randomNumber){
+            points += (attempts*50);
+            return true;
+        }else {
+            points -= 10;
+            attempts -= 1;
+            return false;
         }
     }
 }
