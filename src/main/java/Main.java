@@ -7,7 +7,6 @@ public class Main {
         RulesAndOptions rules_options = new RulesAndOptions();
         Scanner sc = new Scanner(System.in);
         while (true){
-            // Recebe a oção do usuário e faz as verficações de erro necessárias.
             while (true){
                 try{
                     rules_options.homeOptions();
@@ -33,10 +32,16 @@ public class Main {
                         System.out.println("Insira um número inteiro:");
                         int opt = sc.nextInt();
                         if (game.verifyNumber(opt)){
-                            System.out.println("Parabé, você acertou!");
+                            System.out.println("Parabéns, você acertou!");
+                            System.out.println("Pontos obtidos: " + game.getPoints());
                             break;
                         }else {
-                            System.out.println("Tente novamente");
+                            if(i != 1){
+                                System.out.println("Tente novamente");
+                            }
+                        }
+                        if(i == 1){
+                            System.out.println("Suas tentativas acabaram, inicie um novo jogo");
                         }
                     }
                     break;
