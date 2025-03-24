@@ -7,4 +7,12 @@ public class RulesAndOptions {
         System.out.println("4 - Sair");
         System.out.println("Insira o número da opção desejada:");
     }
+
+    public void difficulties(){
+        System.out.println("Escolha sua dificuldade");
+        System.out.println("1 - Fácil;");
+        System.out.println("2 - Médio:");
+        System.out.println("3 - Difícil");
+        System.out.println("Insira a opção desejada: ");
+    }
 }
