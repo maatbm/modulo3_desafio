@@ -15,4 +15,14 @@ public class RulesAndOptions {
         System.out.println("3 - Difícil");
         System.out.println("Insira a opção desejada: ");
     }
+
+    public void rules(){
+        System.out.println("Regras:");
+        System.out.println("Cada dificuldade tem uma pontuação base diferente:");
+        System.out.print("Fácil: 100 \n Médio: 200 \n Difícil: 300 \n");
+        System.out.println("----------");
+        System.out.println("Cada dificuldade tem um número específico de tentativas:");
+        System.out.print("Fácil: 10 \n Médio: 7: \n Difícil: 5 \n");
+        System.out.println("----------");
+    }
 }

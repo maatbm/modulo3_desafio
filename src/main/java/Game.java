@@ -4,38 +4,46 @@ public class Game {
 
     public Game(int difficulty) {
         switch (difficulty){
-            case 1:
+            case 1 ->{
                 this.difficulty = "Fácil";
                 this.points = 100;
                 this.attempts = 10;
                 this.lossPoints = 8;
                 this.randomNumber = (int) (Math.random() * 49)+1;
-                break;
-            case 2:
+            }
+            case 2 ->{
                 this.difficulty = "Médio";
                 this.points = 200;
                 this.attempts = 7;
                 this.lossPoints = 20;
                 this.randomNumber = (int) (Math.random() * 99)+1;
-                break;
-            case 3:
+            }
+            case 3 ->{
                 this.difficulty = "Difícil";
                 this.points = 300;
                 this.attempts = 5;
                 this.lossPoints = 50;
                 this.randomNumber = (int) (Math.random() * 199)+1;
                 System.out.println(randomNumber);
-                break;
+            }
+            default -> System.err.println("Opção inválida inserida");
         }
     }
 
     public Boolean verifyNumber(int number){
         if(number == randomNumber){
             points += (attempts*50);
+            System.out.println("Parabéns, você acertou o número!");
+            System.out.println("Pontuação: " + points);
             return true;
         }else {
             points -= lossPoints;
             attempts -= 1;
+            if(attempts == 0){
+                System.out.println("Suas tentativas acabaram, inicie um novo jogo.");
+            }else {
+                System.out.printf("tente novamente \n tentativas restantes: %d \n ---------- \n", attempts);
+            }
             return false;
         }
     }
