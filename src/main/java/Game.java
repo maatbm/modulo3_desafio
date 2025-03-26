@@ -1,6 +1,6 @@
 public class Game {
     private String difficulty; // 1 - Fácil, 2 - Médio e 3 - Difícil
-    private int points, attempts, randomNumber;
+    private int points, attempts, lossPoints,randomNumber;
 
     public Game(int difficulty) {
         switch (difficulty){
@@ -8,22 +8,23 @@ public class Game {
                 this.difficulty = "Fácil";
                 this.points = 100;
                 this.attempts = 10;
+                this.lossPoints = 8;
                 this.randomNumber = (int) (Math.random() * 49)+1;
-                System.out.println("Número aleatório, fácil: " + randomNumber);
                 break;
             case 2:
                 this.difficulty = "Médio";
                 this.points = 200;
                 this.attempts = 7;
+                this.lossPoints = 20;
                 this.randomNumber = (int) (Math.random() * 99)+1;
-                System.out.println("Número aleatório, médio: " + randomNumber);
                 break;
             case 3:
                 this.difficulty = "Difícil";
                 this.points = 300;
                 this.attempts = 5;
+                this.lossPoints = 50;
                 this.randomNumber = (int) (Math.random() * 199)+1;
-                System.out.println("Número aleatório, difícil: " + randomNumber);
+                System.out.println(randomNumber);
                 break;
         }
     }
@@ -33,7 +34,7 @@ public class Game {
             points += (attempts*50);
             return true;
         }else {
-            points -= 15;
+            points -= lossPoints;
             attempts -= 1;
             return false;
         }
