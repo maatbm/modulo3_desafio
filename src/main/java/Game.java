@@ -24,7 +24,6 @@ public class Game {
                 this.attempts = 5;
                 this.lossPoints = 50;
                 this.randomNumber = (int) (Math.random() * 199)+1;
-                System.out.println(randomNumber);
             }
             default -> System.err.println("Opção inválida inserida");
         }
