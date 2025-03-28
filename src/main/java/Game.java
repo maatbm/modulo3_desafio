@@ -40,12 +40,27 @@ public class Game {
         } else {
             points -= lossPoints;
             attempts -= 1;
-            if (attempts == 0) {
-                System.out.println("Suas tentativas acabaram, inicie um novo jogo.");
-            } else {
-                System.out.printf("tente novamente \n tentativas restantes: %d \n ---------- \n", attempts);
-            }
+            int difference = Math.abs(number - randomNumber);
+            differenceTricky(difference);
             return false;
+        }
+    }
+
+    private void differenceTricky(int difference) {
+        if (attempts > 0) {
+            if (difference <= 5) {
+                System.out.println("Você está extremamente perto!");
+            } else if (difference <= 15) {
+                System.out.println("Você está perto do número!");
+            } else if (difference <= 30) {
+                System.out.println("Ainda não está tão perto");
+            } else {
+                System.out.println("Você está bem longe do número.");
+            }
+            System.out.printf("Tente novamente \nTentativas restantes: %d \n----------\n", attempts);
+        } else {
+            System.out.println("Suas tentativas acabaram, inicie um novo jogo.");
+            System.out.println("O número correto era: " + randomNumber);
         }
     }
 

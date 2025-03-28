@@ -7,6 +7,7 @@ public class Main {
 
         RulesAndOptions rules_options = new RulesAndOptions();
         Game[] gameHistory = new Game[10];
+
         try(Scanner sc = new Scanner(System.in)) {
             while (true) {
                 try {
