@@ -1,3 +1,6 @@
+import java.util.ArrayList;
+import java.util.Scanner;
+
 public class Game {
     private final String difficulty; // 1 - Fácil, 2 - Médio e 3 - Difícil
     private int points, attempts;
@@ -31,6 +34,21 @@ public class Game {
         }
     }
 
+    public void enterNumber(Scanner sc){
+        for(int i = attempts; i>0; i--){
+            System.out.println("Insira um número inteiro");
+            int number = sc.nextInt();
+            if(verifyNumber(number)){
+                break;
+            }else {
+                System.out.println("Tentativas restantes: " + attempts);
+                System.out.println("----------");
+            }
+        }
+        System.err.println("suas tentativas acabaram, inicie um novo jogo");
+        System.out.println("O número era: " + randomNumber);
+    }
+
     public Boolean verifyNumber(int number) {
         if (number == randomNumber) {
             points += (attempts * 50);
@@ -40,27 +58,43 @@ public class Game {
         } else {
             points -= lossPoints;
             attempts -= 1;
-            int difference = Math.abs(number - randomNumber);
-            differenceTricky(difference);
+            differenceTricky(number, randomNumber);
             return false;
         }
     }
 
-    private void differenceTricky(int difference) {
-        if (attempts > 0) {
-            if (difference <= 5) {
-                System.out.println("Você está extremamente perto!");
-            } else if (difference <= 15) {
-                System.out.println("Você está perto do número!");
-            } else if (difference <= 30) {
-                System.out.println("Ainda não está tão perto");
-            } else {
-                System.out.println("Você está bem longe do número.");
-            }
-            System.out.printf("Tente novamente \nTentativas restantes: %d \n----------\n", attempts);
+    private static void differenceTricky(int number, int randomNumber) {
+        int difference = Math.abs(number - randomNumber);
+        if (difference <= 5) {
+            System.out.println("Você está extremamente perto, tente novamente");
+        } else if (difference <= 15) {
+            System.out.println("Você está perto do número, tente novamente");
+        } else if (difference <= 30) {
+            System.out.println("Ainda não está tão perto, tente novamente");
         } else {
-            System.out.println("Suas tentativas acabaram, inicie um novo jogo.");
-            System.out.println("O número correto era: " + randomNumber);
+            System.out.println("Você está bem longe do número, tente novamente");
+        }
+    }
+
+    public static void addGameHistory(ArrayList<Game> gameArrayList, Game game){
+        if(gameArrayList.size()<10){
+            gameArrayList.add(game);
+        }else {
+            System.err.print("Limite de partidas no histórico atingido. \nAs próximas partidas não serão salvas.");
+        }
+    }
+
+    public static void showGameHistory(ArrayList<Game> gameArrayList) {
+        System.out.println("HISTÓRICO DE PARTIDAS");
+        if (gameArrayList.isEmpty()) {
+            System.err.println("Histórico vazio, complete ao menos uma partida");
+        } else {
+            for (int i = 0; i < gameArrayList.size(); i++) {
+                System.out.println("Jogo " + (i + 1));
+                System.out.println("Dificuldade: " + gameArrayList.get(i).getDifficulty());
+                System.out.println("Pontuação: " + gameArrayList.get(i).getPoints());
+                System.out.println("----------");
+            }
         }
     }
 
@@ -70,9 +104,5 @@ public class Game {
 
     public int getPoints() {
         return points;
-    }
-
-    public int getAttempts() {
-        return attempts;
     }
 }

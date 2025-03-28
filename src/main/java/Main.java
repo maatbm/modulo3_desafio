@@ -1,49 +1,32 @@
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Main {
     public static void main(String[] args) {
-        int homeOpt;
-        int gameHistoryIndex = 0;
-
-        RulesAndOptions rules_options = new RulesAndOptions();
-        Game[] gameHistory = new Game[10];
+        ArrayList<Game> gameHistory = new ArrayList<>(10);
 
         try(Scanner sc = new Scanner(System.in)) {
             while (true) {
                 try {
-                    rules_options.homeOptions();
-                    homeOpt = sc.nextInt();
+                    RulesAndOptions.homeOptions();
+                    int homeOpt = sc.nextInt();
 
                     switch (homeOpt) {
                         case 1 -> {
-                            rules_options.difficulties();
+                            RulesAndOptions.difficulties();
                             int difficulty = sc.nextInt();
                             Game game = new Game(difficulty);
-                            for (int i = game.getAttempts(); i > 0; i--) {
-                                System.out.println("Insira um número inteiro:");
-                                int opt = sc.nextInt();
-                                if (game.verifyNumber(opt)) {
-                                    break;
-                                }
-                            }
-                            gameHistory[gameHistoryIndex] = game;
-                            gameHistoryIndex++;
+                            game.enterNumber(sc);
+                            Game.addGameHistory(gameHistory, game);
                         }
-                        case 2 -> rules_options.rules();
+                        case 2 -> RulesAndOptions.rules();
                         case 3 -> {
-                            System.out.println("Histórico de pontuações:");
-                            for (int i = 0; i < gameHistory.length; i++) {
-                                if (gameHistory[i] != null) {
-                                    System.out.println("Jogo: " + (i + 1));
-                                    System.out.println("Pontuação: " + gameHistory[i].getPoints());
-                                    System.out.println("Dificuldade: " + gameHistory[i].getDifficulty());
-                                    System.out.println("----------");
-                                }
-                            }
+                            Game.showGameHistory(gameHistory);
+                            Thread.sleep(1000);
                         }
                         case 4 -> {
                             System.out.println("Jogo encerrado com sucesso!");
-                            System.exit(0);
+                            return;
                         }
                         default -> System.err.println("Opção inválida inserida");
                     }
