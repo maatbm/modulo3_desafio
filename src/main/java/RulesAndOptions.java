@@ -1,5 +1,6 @@
 public class RulesAndOptions {
-    public static void homeOptions(){
+    public static void homeOptions() throws InterruptedException {
+        Thread.sleep(1000);
         System.out.println("Bem-vindo ao jogo de adivinhação!");
         System.out.println("1 - Iniciar novo jogo;");
         System.out.println("2 - Ver regras;");
@@ -13,6 +14,7 @@ public class RulesAndOptions {
         System.out.println("1 - Fácil: Adivinhar um número entre 1 e 50, com 10 tentativas");
         System.out.println("2 - Médio: Adivinhar um número entre 1 e 100, com 7 tentativas");
         System.out.println("3 - Difícil: Adivinhar um número entre 1 e 200, com 5 tentativas");
+        System.out.println("4 - Modo sequência: Serão gerados três números de uma vez, entre 1 e 50, deverá acertar todos com 15 tentativas.");
         System.out.println("Insira a opção desejada: ");
     }
 

@@ -20,10 +20,7 @@ public class Main {
                             Game.addGameHistory(gameHistory, game);
                         }
                         case 2 -> RulesAndOptions.rules();
-                        case 3 -> {
-                            Game.showGameHistory(gameHistory);
-                            Thread.sleep(1000);
-                        }
+                        case 3 -> Game.showGameHistory(gameHistory);
                         case 4 -> {
                             System.out.println("Jogo encerrado com sucesso!");
                             return;
@@ -34,7 +31,7 @@ public class Main {
                 } catch (IllegalArgumentException e) {
                     System.err.println("Dificuldade inválida, tente novamente");
                 } catch (Exception e) {
-                    System.err.println("Ocorreu algum erro ao executar o sistema, tente novamente");
+                    System.err.println("Ocorreu algum erro ao executar o sistema, tente novamente " + e);
                     sc.nextLine();
                 }
             }
