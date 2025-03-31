@@ -32,4 +32,10 @@ public class RulesAndOptions {
         System.out.println("Bônus por conclusão rápida: +50 pontos por cada tentativa não usada.");
         System.out.println("----------");
     }
+
+    public static void tipsOptions(){
+        System.out.println("1 - dica de paridade(par/ímpar) -10 pontos");
+        System.out.println("2 - dica se o número está na metade superior ou inferior do limite. -20 pontos");
+        System.out.println("3 - dica de quente/frio com base na proximidade do seu palpite com o número aleatório. -15 pontos");
+    }
 }

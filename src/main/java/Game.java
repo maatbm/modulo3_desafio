@@ -7,6 +7,7 @@ public class Game {
     private int points, attempts;
     private final int lossPoints;
     private int randomNumber = 0;
+    private int limit = 0;
     ArrayList<Integer> randomSequence = new ArrayList<>(3);
 
     public Game(int difficulty) {
@@ -16,7 +17,8 @@ public class Game {
                 this.points = 100;
                 this.attempts = 10;
                 this.lossPoints = 8;
-                this.randomNumber = (int) (Math.random() * 49) + 1;
+                this.limit = 50;
+                this.randomNumber = (int) (Math.random() * (limit-1)) + 1;
                 System.out.println(randomNumber);
             }
             case 2 -> {
@@ -24,15 +26,16 @@ public class Game {
                 this.points = 200;
                 this.attempts = 7;
                 this.lossPoints = 20;
-                this.randomNumber = (int) (Math.random() * 99) + 1;
+                this.limit = 100;
+                this.randomNumber = (int) (Math.random() * (limit-1)) + 1;
             }
             case 3 -> {
                 this.difficulty = "Difícil";
                 this.points = 300;
                 this.attempts = 5;
                 this.lossPoints = 50;
-                this.randomNumber = (int) (Math.random() * 199) + 1;
-                System.out.println(randomNumber);
+                this.limit = 200;
+                this.randomNumber = (int) (Math.random() * (limit-1)) + 1;
             }
             case 4 -> {
                 this.difficulty = "Modo sequência";
@@ -68,6 +71,24 @@ public class Game {
             } else {
                 if(verifyNumber(number)){
                     break;
+                }else {
+                    System.out.print("Quer uma dica? \n1 - Sim \n2 - Não \n");
+                    int opt = sc.nextInt();
+                    if(opt ==1 ){
+                        while (true){
+                            try {
+                                RulesAndOptions.tipsOptions();
+                                int tipOpt = sc.nextInt();
+                                enterTip(tipOpt, number);
+                                break;
+                            }catch (IllegalArgumentException e){
+                                System.out.println("Opção inválida");
+                            }catch (InputMismatchException e){
+                                System.out.println("Insira apenas números inteiors");
+                                sc.nextLine();
+                            }
+                        }
+                    }
                 }
             }
             System.out.println("Tentativas restantes: " + attempts);
@@ -79,6 +100,7 @@ public class Game {
         }
     }
 
+    // Checks the number entered by the user
     public Boolean verifySequenceNumber(int number) {
         Integer numberObj = number;
         if (randomSequence.contains(numberObj)) {
@@ -106,12 +128,22 @@ public class Game {
         } else {
             points -= lossPoints;
             attempts -= 1;
-            differenceTricky(number, randomNumber);
+            differenceTip(number, randomNumber);
             return false;
         }
     }
 
-    private static void differenceTricky(int number, int randomNumber) {
+    // Tips
+    private void enterTip(int option, int number){
+        switch (option){
+            case 1 -> parityTip();
+            case 2 -> halfTip(number);
+            case 3 -> hotColdTip(number);
+            default -> throw new IllegalArgumentException();
+        }
+    }
+
+    private static void differenceTip(int number, int randomNumber) {
         int difference = Math.abs(number - randomNumber);
         if (difference <= 5) {
             System.out.println("Você está extremamente perto, tente novamente");
@@ -124,6 +156,39 @@ public class Game {
         }
     }
 
+    private void parityTip(){
+        if(randomNumber%2==0){
+            System.out.println("o número aleatório é par");
+        }else {
+            System.out.println("O número aleatório é ímpar");
+        }
+        points -= 10;
+    }
+
+    private void halfTip(int number){
+        if(limit/2>number){
+            System.out.println("O número aleatório está na metade inferior");
+        }else {
+            System.out.println("O número aleatório está na metade superior");
+        }
+        points -= 20;
+    }
+
+    private void hotColdTip(int number){
+        int difference = Math.abs(number - randomNumber);
+        if(difference<=5){
+            System.out.println("Você está MUITO quente");
+        } else if (difference<=10){
+            System.out.println("Você está quente");
+        } else if (difference<=15){
+            System.out.println("Você está morno");
+        }else {
+            System.out.println("Você está frio");
+        }
+        points -= 15;
+    }
+
+    // Handling score history
     public static void addGameHistory(ArrayList<Game> gameArrayList, Game game) {
         if (gameArrayList.size() < 10) {
             gameArrayList.add(game);
@@ -146,6 +211,7 @@ public class Game {
         }
     }
 
+    // Getters and setters
     public String getDifficulty() {
         return difficulty;
     }
