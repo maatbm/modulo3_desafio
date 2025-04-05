@@ -3,7 +3,7 @@ import java.util.Scanner;
 
 public class Main {
     public static void main(String[] args) {
-        ArrayList<Game> gameHistory = new ArrayList<>(10);
+        ArrayList<Game> gameHistory = new ArrayList<>(11);
 
         try(Scanner sc = new Scanner(System.in)) {
             while (true) {

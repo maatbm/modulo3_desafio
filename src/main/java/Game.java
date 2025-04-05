@@ -4,10 +4,9 @@ import java.util.Scanner;
 
 public class Game {
     private final String difficulty; // 1 - Fácil, 2 - Médio e 3 - Difícil
-    private int points, attempts;
+    private int points, attempts, randomNumber, limit = 0;
     private final int lossPoints;
-    private int randomNumber = 0;
-    private int limit = 0;
+
     ArrayList<Integer> randomSequence = new ArrayList<>(3);
 
     public Game(int difficulty) {
@@ -19,7 +18,6 @@ public class Game {
                 this.lossPoints = 8;
                 this.limit = 50;
                 this.randomNumber = (int) (Math.random() * (limit-1)) + 1;
-                System.out.println(randomNumber);
             }
             case 2 -> {
                 this.difficulty = "Médio";
@@ -45,7 +43,6 @@ public class Game {
                 for (int i = 0; i < 3; i++) {
                     randomSequence.add((int) (Math.random() * 49) + 1);
                 }
-                System.out.println(randomSequence);
             }
             default -> throw new IllegalArgumentException();
         }
@@ -190,7 +187,10 @@ public class Game {
 
     // Handling score history
     public static void addGameHistory(ArrayList<Game> gameArrayList, Game game) {
-        if (gameArrayList.size() < 10) {
+        if(gameArrayList.isEmpty() || gameArrayList.get(0).getPoints() < game.getPoints()){
+            gameArrayList.add(0, game);
+            System.out.println("Parabéns! Você atingiu um novo recorde!");
+        } else if (gameArrayList.size() < 10) {
             gameArrayList.add(game);
         } else {
             System.err.print("Limite de partidas no histórico atingido. \nAs próximas partidas não serão salvas.");
@@ -202,12 +202,16 @@ public class Game {
         if (gameArrayList.isEmpty()) {
             System.err.println("Histórico vazio, complete ao menos uma partida");
         } else {
-            for (int i = 0; i < gameArrayList.size(); i++) {
-                System.out.println("Jogo " + (i + 1));
+            for (int i = 1; i <gameArrayList.size(); i++) {
+                System.out.println("Jogo " + i);
                 System.out.println("Dificuldade: " + gameArrayList.get(i).getDifficulty());
                 System.out.println("Pontuação: " + gameArrayList.get(i).getPoints());
                 System.out.println("----------");
             }
+            System.out.println("RECORDE");
+            System.out.println("Dificuldade: " + gameArrayList.get(0).getDifficulty());
+            System.out.println("Pontos: " + gameArrayList.get(0).getPoints());
+            System.out.println("----------");
         }
     }
 
